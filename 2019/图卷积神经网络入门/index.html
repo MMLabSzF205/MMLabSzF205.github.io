@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="Chinese, English">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="[toc] 1. 简介1.1. 卷积1.局部感受野 2.参数共享 1.2. 为什么需要图卷积为什么不能直接使用卷积？  每个节点的邻居数目不一定相同  那么问题来了，如何定义不规则图结构上的卷积呢？ 1.3. 图卷积直观理解定义一：  f\left(H^{(l)}, A\right)=\sigma\left(A H^{(l)} W^{(l)}\right)A是邻接矩阵定义二:  f\left(H^">
+<meta property="og:type" content="article">
+<meta property="og:title" content="F205学习小组博客">
+<meta property="og:url" content="http://MMLabSzF205.github.io/2019/图卷积神经网络入门/index.html">
+<meta property="og:site_name" content="F205学习小组博客">
+<meta property="og:description" content="[toc] 1. 简介1.1. 卷积1.局部感受野 2.参数共享 1.2. 为什么需要图卷积为什么不能直接使用卷积？  每个节点的邻居数目不一定相同  那么问题来了，如何定义不规则图结构上的卷积呢？ 1.3. 图卷积直观理解定义一：  f\left(H^{(l)}, A\right)=\sigma\left(A H^{(l)} W^{(l)}\right)A是邻接矩阵定义二:  f\left(H^">
+<meta property="og:locale" content="Chinese, English">
+<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=1499f41d314a700d2416606bc606ee33">
+<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=3b50d70252d75c39821e26a0c6bc9bc7">
+<meta property="og:image" content="http://mmlabszf205.github.io/2019/图卷积神经网络入门/4DFE5464-E8E2-4A20-BD8D-F8F26DFCAE31.png">
+<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=d437ddd8d735e3d6dd2e4ef2b6058953">
+<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=ca83187d8628ff8f31c7dc663516dafd">
+<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=b4acb10553c74678ddab54ea285faa0d">
+<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=b8d5806ef71f450298abf2552c5b7b69">
+<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=833da1cab7124891bd32d0f39902dedf">
+<meta property="og:image" content="http://mmlabszf205.github.io/2019/图卷积神经网络入门/1A956D8D-4FEF-4878-B09A-11E470ADC4B0.png">
+<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=4fb7f437d95a5a93d655dfe317781283">
+<meta property="og:updated_time" content="2019-06-24T09:23:44.385Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="F205学习小组博客">
+<meta name="twitter:description" content="[toc] 1. 简介1.1. 卷积1.局部感受野 2.参数共享 1.2. 为什么需要图卷积为什么不能直接使用卷积？  每个节点的邻居数目不一定相同  那么问题来了，如何定义不规则图结构上的卷积呢？ 1.3. 图卷积直观理解定义一：  f\left(H^{(l)}, A\right)=\sigma\left(A H^{(l)} W^{(l)}\right)A是邻接矩阵定义二:  f\left(H^">
+<meta name="twitter:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=1499f41d314a700d2416606bc606ee33">
+
+
+
+
+
+
+  <link rel="canonical" href="http://MMLabSzF205.github.io/2019/图卷积神经网络入门/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title> | F205学习小组博客</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="Chinese, English">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">F205学习小组博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://MMLabSzF205.github.io/2019/图卷积神经网络入门/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MMLabSzF205">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="F205学习小组博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-24 17:23:44" itemprop="dateCreated datePublished" datetime="2019-06-24T17:23:44+08:00">2019-06-24</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[toc]</p>
+<h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><h2 id="1-1-卷积"><a href="#1-1-卷积" class="headerlink" title="1.1. 卷积"></a>1.1. 卷积</h2><p><strong>1.局部感受野</strong></p>
+<p><strong>2.参数共享</strong><br><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=1499f41d314a700d2416606bc606ee33" alt="1499f41d314a700d2416606bc606ee33.gif"><br><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=3b50d70252d75c39821e26a0c6bc9bc7" alt="3b50d70252d75c39821e26a0c6bc9bc7.png"></p>
+<h2 id="1-2-为什么需要图卷积"><a href="#1-2-为什么需要图卷积" class="headerlink" title="1.2. 为什么需要图卷积"></a>1.2. 为什么需要图卷积</h2><p><img src="/2019/图卷积神经网络入门/4DFE5464-E8E2-4A20-BD8D-F8F26DFCAE31.png" alt="517f816afc86536f35a4ba29509aeb50"><br><strong>为什么不能直接使用卷积？</strong></p>
+<ul>
+<li>每个节点的邻居数目不一定相同</li>
+</ul>
+<p><strong>那么问题来了，如何定义不规则图结构上的卷积呢？</strong><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=d437ddd8d735e3d6dd2e4ef2b6058953" alt="d437ddd8d735e3d6dd2e4ef2b6058953.jpeg"></p>
+<h2 id="1-3-图卷积直观理解"><a href="#1-3-图卷积直观理解" class="headerlink" title="1.3. 图卷积直观理解"></a>1.3. 图卷积直观理解</h2><p>定义一：</p>
+<script type="math/tex; mode=display">
+f\left(H^{(l)}, A\right)=\sigma\left(A H^{(l)} W^{(l)}\right)</script><p>A是邻接矩阵<br>定义二:</p>
+<script type="math/tex; mode=display">
+f\left(H^{(l)}, A\right)=\sigma\left(\hat{D}^{-\frac{1}{2}} \hat{A} \hat{D}^{-\frac{1}{2}} H^{(l)} W^{(l)}\right)</script><ol>
+<li><strong>传递</strong>信息给相邻节点<br><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=ca83187d8628ff8f31c7dc663516dafd" alt="ca83187d8628ff8f31c7dc663516dafd.gif"></li>
+<li><p><strong>接受</strong>来自相邻节点的信息<br><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=b4acb10553c74678ddab54ea285faa0d" alt="b4acb10553c74678ddab54ea285faa0d.gif"></p>
+</li>
+<li><p>计算新的表示<br><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=b8d5806ef71f450298abf2552c5b7b69" alt="b8d5806ef71f450298abf2552c5b7b69.gif"><br><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=833da1cab7124891bd32d0f39902dedf" alt="833da1cab7124891bd32d0f39902dedf.gif"></p>
+</li>
+</ol>
+<p><strong>VS. cnn卷积</strong><br>cnn卷积也可以算是接受来自附近节点的信息，然后接受并更新，随着层数增加，感受野逐渐增加</p>
+<h2 id="1-4-图卷积应用"><a href="#1-4-图卷积应用" class="headerlink" title="1.4. 图卷积应用"></a>1.4. 图卷积应用</h2><p><img src="/2019/图卷积神经网络入门/1A956D8D-4FEF-4878-B09A-11E470ADC4B0.png" alt="f169b88eed3d00da5b9bf30edc4f0a9a"><br>图片和文本经过一定处理后也是一个不规则图结构，cnn卷积，lstm,transformer等网络无法处理</p>
+<h1 id="2-图上的卷积定义"><a href="#2-图上的卷积定义" class="headerlink" title="2. 图上的卷积定义"></a>2. 图上的卷积定义</h1><h2 id="2-1-基础"><a href="#2-1-基础" class="headerlink" title="2.1. 基础"></a>2.1. 基础</h2><ol>
+<li>傅里叶变换及其逆变换<script type="math/tex; mode=display">
+\mathcal{F}\{f\}(v)=\int_{\mathbb{R}} f(x) e^{-2 \pi i x \cdot v} d x</script><script type="math/tex; mode=display">
+\mathcal{F}^{-1}\{f\}(x)=\int_{\mathbb{R}} F(v) e^{2 \pi i x \cdot v} d v</script></li>
+</ol>
+<p>我们把函数看成是一个向量，上面的$e^{2 \pi i x v}(v\in R)$可以看成是一组正交基,那么傅里叶变换做的事就是求出原向量在各个正交基上的投影，傅里叶逆变换自然就是各个正交基加权求和得到原向量</p>
+<ol>
+<li><p>卷积定理（时域上的卷积，频域上的乘积）</p>
+<script type="math/tex; mode=display">
+f * g=\mathcal{F}^{-1}\{\mathcal{F}\{f\} \cdot \mathcal{F}\{g\}\}</script></li>
+<li><p>Laplacian算子</p>
+</li>
+</ol>
+<script type="math/tex; mode=display">
+D(i, j)=\left\{\begin{array}{ll}{d_{i}} & {\text { if } i=j} \\ {0} & {\text { otherwise }}\end{array}\right.</script><script type="math/tex; mode=display">
+A(i, j)=\left\{\begin{array}{ll}{1} & {\text { if } x_{i} \sim x_{j}} \\ {0} & {\text { otherwise }}\end{array}\right.</script><script type="math/tex; mode=display">
+L=D-A</script><p>标准化的Laplacian算子</p>
+<script type="math/tex; mode=display">
+L=I_{N}-D^{-\frac{1}{2}} A D^{-\frac{1}{2}}</script><p>对角化，U为正交矩阵</p>
+<script type="math/tex; mode=display">
+L=U \Lambda U^{T}</script><ol>
+<li>切比雪夫多项式<script type="math/tex; mode=display">
+T_{0}(x)=1, T_{1}(x)=x, T_{n+1}(x)=2 x T_{n}(x)-T_{n-1}(x)</script>切比雪夫多项式在逼近理论中有重要的应用</li>
+</ol>
+<h2 id="2-2-图卷积定义"><a href="#2-2-图卷积定义" class="headerlink" title="2.2. 图卷积定义"></a>2.2. 图卷积定义</h2><p><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=4fb7f437d95a5a93d655dfe317781283" alt="4fb7f437d95a5a93d655dfe317781283.jpeg"><br>$f * g$在图上的卷积不好直接定义，那么我们能不能先定义图上的傅里叶变换，根据卷积定理，频域乘积再做逆变换得到卷积。这个图上的傅里叶变换是什么呢？<br>我们知道傅里叶变换的本质就是把原向量投影到以一组正交向量为基的空间中，在线性数据下，这组正交基是$e^{2 \pi i x v}(v\in R)$，那么在图结构下，这组正交基是什么呢？<br>前面提到的Laplacian算法对角化后得到的U就是我们要的图结构下的正交基。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>传统傅里叶变换</th>
+<th>图傅里叶变换</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正交基</td>
+<td>$e^{-2 \pi i x v}(v\in R)$</td>
+<td>$U^T$</td>
+</tr>
+<tr>
+<td>逆变换基</td>
+<td>$e^{2 \pi i x v}(v\in R)$</td>
+<td>$U$</td>
+</tr>
+<tr>
+<td>维度</td>
+<td>$\infty$</td>
+<td>节点个数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>为什么是Laplacian算子的特征向量，而不是其他的矩阵？<br>Laplacian算子相当于定义了图上的二阶微分运算<br>一阶导数：</p>
+<script type="math/tex; mode=display">
+f^{\prime}(x)=\lim _{h \rightarrow 0} \frac{f(x+h)-f(x)}{h}</script><p>Laplacian算子就是二阶导数</p>
+<script type="math/tex; mode=display">
+\Delta f(x)=\lim _{h \rightarrow 0} \frac{f(x+h)-2 f(x)+f(x-h)}{h^{2}}</script><p>图上的一阶导数定义</p>
+<script type="math/tex; mode=display">
+f_{* g}^{\prime}(x)=f(x)-f(y)</script><p>图上的Laplacian算子定义</p>
+<script type="math/tex; mode=display">
+\Delta_{* g} f^{\prime}(x)=\Sigma_{y \sim x} f(x)-f(y)</script><p>至于二阶微分运算和傅里叶变换之间的联系等着各位大佬补充Orz</p>
+<p>图傅里叶变换</p>
+<script type="math/tex; mode=display">
+\mathcal{G F}\{x\}=U^{T} x</script><p>图逆傅里叶变换</p>
+<script type="math/tex; mode=display">
+\mathcal{I} \mathcal{G F}\{\hat x\}=U \hat x</script><p>现在我们有了图上的傅里叶变换，那么图上的卷积定理应该是怎样的呢？</p>
+<script type="math/tex; mode=display">
+g * x=U\left(U^{T} g \odot U^{T} x\right)</script><p>$\odot$是Hadamard乘积，两个列向量的Hadamard乘积可以看成是前一个列向量拉成对角阵再和第二个列向量做普通矩阵乘法<br>可以把$U^Tg$看成是特征值的函数，则有：</p>
+<script type="math/tex; mode=display">g*x=Ug_{\theta}(\Lambda)U^T x</script><p>由此我们完成了图卷积定义<br>接下来就是用近似方法来降低参数量和计算复杂度<br><strong>设法避免对角化</strong></p>
+<script type="math/tex; mode=display">
+g_{\theta^{\prime}}(\Lambda) \approx \sum_{k=0}^{K} \theta_{k}^{\prime} T_{k}(\tilde{\Lambda})</script><script type="math/tex; mode=display">
+U \Lambda^{k} U^{T}=\left(U \Lambda U^{T}\right)^{k}=L^{k}</script><script type="math/tex; mode=display">
+Ug_{\theta^{\prime}}(\Lambda)U^T = \sum_{k=0}^{K} \theta_{k}^{\prime} T_{k}({L})</script><p>设定$K=1$,$\mathbf L\approx{L}-\mathbf{I}_{N}$,卷积公式可以简化为<br>为何这样简化?点击<a href="https://arxiv.org/pdf/1812.08434.pdf" target="_blank" rel="noopener">here</a></p>
+<script type="math/tex; mode=display">
+\begin{aligned} g_{\theta^{\prime}} * x & \approx \theta\left(I_{N}+L\right) x \\ &=\theta\left(I_{N}+D^{-\frac{1}{2}} A D^{-\frac{1}{2}}\right) x \end{aligned}</script><script type="math/tex; mode=display">
+\begin{array}{l}{\  \tilde{A}=A+I_{N}, \quad \tilde{D}_{i i}=\sum_{j} \tilde{A}_{i j}} \\ {g_{\theta^{\prime}} * x=\theta\left(\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}}\right) x}\end{array}</script><script type="math/tex; mode=display">
+H^{(l+1)}=\sigma\left(\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} H^{(l)} W^{(l)}\right)</script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/图像问答（VQA）/" rel="next" title="VQA">
+                <i class="fa fa-chevron-left"></i> VQA
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="MMLabSzF205">
+            
+              <p class="site-author-name" itemprop="name">MMLabSzF205</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-简介"><span class="nav-text">1. 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-卷积"><span class="nav-text">1.1. 卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-为什么需要图卷积"><span class="nav-text">1.2. 为什么需要图卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-图卷积直观理解"><span class="nav-text">1.3. 图卷积直观理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-图卷积应用"><span class="nav-text">1.4. 图卷积应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-图上的卷积定义"><span class="nav-text">2. 图上的卷积定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-基础"><span class="nav-text">2.1. 基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-图卷积定义"><span class="nav-text">2.2. 图卷积定义</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MMLabSzF205</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Pisces</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('Copy')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>
