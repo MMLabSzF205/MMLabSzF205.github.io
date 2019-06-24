@@ -108,38 +108,30 @@
 
 
 
-  <meta name="description" content="1. 简介1.1. 什么是迁移学习 假如一个人从来没有见过猫，那么这个人只需要最多10张照片，就能学习到什么是猫。 当你拿到一张照片的时候，在认识猫之前你已经认识了太多的东西了。    1.2. 为什么需要迁移学习 许多任务共享相同的语言知识 有标注的数据较少 经验上，引入迁移学习取得巨大成功   1.3. 迁移学习分类把我们当前要处理的NLP任务叫做T（T称为目标任务），迁移学习技术做的事是利用">
-<meta name="keywords" content="自然语言处理,迁移学习">
+  <meta name="description" content="1. 马尔科夫过程马尔可夫性：已知当前的状态，过去与未来无关。公式表示：$P(S_{t+1} | S_{t}) = P(S_{t+1} | S_{t}, S_{t-1}, …, S_{1})$ 马尔可夫过程分类：  马尔可夫奖励过程（MRP） 表示为{S, P, R, $\gamma$}   马尔可夫决策过程（MDP） {S, A, P, R, $\gamma$}     其中S是状态的集合， A">
+<meta name="keywords" content="强化学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NLP中的迁移学习">
-<meta property="og:url" content="http://MMLabSzF205.github.io/2019/NLP中的迁移学习/index.html">
+<meta property="og:title" content="强化学习笔记">
+<meta property="og:url" content="http://MMLabSzF205.github.io/2019/强化学习总结/index.html">
 <meta property="og:site_name" content="F205学习小组博客">
-<meta property="og:description" content="1. 简介1.1. 什么是迁移学习 假如一个人从来没有见过猫，那么这个人只需要最多10张照片，就能学习到什么是猫。 当你拿到一张照片的时候，在认识猫之前你已经认识了太多的东西了。    1.2. 为什么需要迁移学习 许多任务共享相同的语言知识 有标注的数据较少 经验上，引入迁移学习取得巨大成功   1.3. 迁移学习分类把我们当前要处理的NLP任务叫做T（T称为目标任务），迁移学习技术做的事是利用">
+<meta property="og:description" content="1. 马尔科夫过程马尔可夫性：已知当前的状态，过去与未来无关。公式表示：$P(S_{t+1} | S_{t}) = P(S_{t+1} | S_{t}, S_{t-1}, …, S_{1})$ 马尔可夫过程分类：  马尔可夫奖励过程（MRP） 表示为{S, P, R, $\gamma$}   马尔可夫决策过程（MDP） {S, A, P, R, $\gamma$}     其中S是状态的集合， A">
 <meta property="og:locale" content="Chinese, English">
-<meta property="og:image" content="http://wx2.sinaimg.cn/large/007mOCDngy1g3wa9yjg5fj30ns0hedwy.jpg">
-<meta property="og:image" content="http://wx1.sinaimg.cn/large/007mOCDngy1g3v0v1d2nmj30w60mednx.jpg">
-<meta property="og:image" content="http://ws2.sinaimg.cn/large/007mOCDngy1g3v13llgpnj31w80ucwo3.jpg">
-<meta property="og:image" content="http://ws3.sinaimg.cn/large/007mOCDngy1g3v1figi17j31pa0py421.jpg">
-<meta property="og:image" content="http://ws4.sinaimg.cn/large/007mOCDngy1g3v1tsrjpcj31v00w4dt9.jpg">
-<meta property="og:image" content="http://ws3.sinaimg.cn/large/007mOCDngy1g3vuw0x2c7j30j80goq4w.jpg">
-<meta property="og:image" content="http://wx4.sinaimg.cn/large/007mOCDngy1g3vv3r7kzbj30t80ikq61.jpg">
-<meta property="og:image" content="http://ws4.sinaimg.cn/large/007mOCDngy1g3vwih3cjzj30k20i0afu.jpg">
-<meta property="og:image" content="http://wx2.sinaimg.cn/large/007mOCDngy1g3vwmzntf4j30na0q0wmx.jpg">
-<meta property="og:image" content="http://ws4.sinaimg.cn/large/007mOCDngy1g3wapk82mlj30t40lqdrr.jpg">
-<meta property="og:image" content="http://wx4.sinaimg.cn/large/007mOCDngy1g3w4rmaw3ij30ne0k0tg9.jpg">
-<meta property="og:image" content="http://wx3.sinaimg.cn/large/007mOCDngy1g3w4tcfdqnj30sw0kunbt.jpg">
-<meta property="og:updated_time" content="2019-06-24T10:58:02.117Z">
+<meta property="og:image" content="http://mmlabszf205.github.io/2019/强化学习总结/51C658D7-D7E4-41F0-BE21-68B5FDEB328B.png">
+<meta property="og:image" content="http://mmlabszf205.github.io/2019/强化学习总结/A5889761-76B1-41F9-BA85-D24667B330C9.png">
+<meta property="og:image" content="http://mmlabszf205.github.io/2019/强化学习总结/1B69E559-0C65-4605-AD6A-D729C74AD155.png">
+<meta property="og:image" content="http://mmlabszf205.github.io/2019/强化学习总结/86F9B82B-1EE0-45AF-9B15-CA8C800B8683.png">
+<meta property="og:updated_time" content="2019-06-24T10:58:02.118Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NLP中的迁移学习">
-<meta name="twitter:description" content="1. 简介1.1. 什么是迁移学习 假如一个人从来没有见过猫，那么这个人只需要最多10张照片，就能学习到什么是猫。 当你拿到一张照片的时候，在认识猫之前你已经认识了太多的东西了。    1.2. 为什么需要迁移学习 许多任务共享相同的语言知识 有标注的数据较少 经验上，引入迁移学习取得巨大成功   1.3. 迁移学习分类把我们当前要处理的NLP任务叫做T（T称为目标任务），迁移学习技术做的事是利用">
-<meta name="twitter:image" content="http://wx2.sinaimg.cn/large/007mOCDngy1g3wa9yjg5fj30ns0hedwy.jpg">
+<meta name="twitter:title" content="强化学习笔记">
+<meta name="twitter:description" content="1. 马尔科夫过程马尔可夫性：已知当前的状态，过去与未来无关。公式表示：$P(S_{t+1} | S_{t}) = P(S_{t+1} | S_{t}, S_{t-1}, …, S_{1})$ 马尔可夫过程分类：  马尔可夫奖励过程（MRP） 表示为{S, P, R, $\gamma$}   马尔可夫决策过程（MDP） {S, A, P, R, $\gamma$}     其中S是状态的集合， A">
+<meta name="twitter:image" content="http://mmlabszf205.github.io/2019/强化学习总结/51C658D7-D7E4-41F0-BE21-68B5FDEB328B.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://MMLabSzF205.github.io/2019/NLP中的迁移学习/">
+  <link rel="canonical" href="http://MMLabSzF205.github.io/2019/强化学习总结/">
 
 
 
@@ -149,7 +141,7 @@
   };
 </script>
 
-  <title>NLP中的迁移学习 | F205学习小组博客</title>
+  <title>强化学习笔记 | F205学习小组博客</title>
   
 
 
@@ -318,7 +310,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://MMLabSzF205.github.io/2019/NLP中的迁移学习/">
+    <link itemprop="mainEntityOfPage" href="http://MMLabSzF205.github.io/2019/强化学习总结/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MMLabSzF205">
@@ -335,7 +327,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">NLP中的迁移学习
+          <h2 class="post-title" itemprop="name headline">强化学习笔记
               
             
           </h2>
@@ -360,7 +352,7 @@
                 
               
 
-              <time title="Created: 2019-06-11 23:10:53" itemprop="dateCreated datePublished" datetime="2019-06-11T23:10:53+08:00">2019-06-11</time>
+              <time title="Created: 2019-06-11 11:04:31" itemprop="dateCreated datePublished" datetime="2019-06-11T11:04:31+08:00">2019-06-11</time>
             
 
             
@@ -394,7 +386,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/郭宇/" itemprop="url" rel="index"><span itemprop="name">郭宇</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/严浩鹏/" itemprop="url" rel="index"><span itemprop="name">严浩鹏</span></a></span>
 
                 
                 
@@ -428,82 +420,100 @@
       
 
       
-        <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><h2 id="1-1-什么是迁移学习"><a href="#1-1-什么是迁移学习" class="headerlink" title="1.1. 什么是迁移学习"></a>1.1. 什么是迁移学习</h2><ul>
-<li>假如一个人从来没有见过猫，那么这个人只需要最多10张照片，就能学习到什么是猫。</li>
-<li>当你拿到一张照片的时候，在认识猫之前你已经认识了太多的东西了。</li>
-</ul>
-<p><img src="http://wx2.sinaimg.cn/large/007mOCDngy1g3wa9yjg5fj30ns0hedwy.jpg" alt="image"></p>
-<p><img src="http://wx1.sinaimg.cn/large/007mOCDngy1g3v0v1d2nmj30w60mednx.jpg" alt="image"></p>
-<h2 id="1-2-为什么需要迁移学习"><a href="#1-2-为什么需要迁移学习" class="headerlink" title="1.2. 为什么需要迁移学习"></a>1.2. 为什么需要迁移学习</h2><ul>
-<li>许多任务共享相同的语言知识</li>
-<li>有标注的数据较少</li>
-<li>经验上，引入迁移学习取得巨大成功</li>
-</ul>
-<p><img src="http://ws2.sinaimg.cn/large/007mOCDngy1g3v13llgpnj31w80ucwo3.jpg" alt="image"></p>
-<h2 id="1-3-迁移学习分类"><a href="#1-3-迁移学习分类" class="headerlink" title="1.3. 迁移学习分类"></a>1.3. 迁移学习分类</h2><p>把我们当前要处理的NLP任务叫做T（T称为目标任务），迁移学习技术做的事是利用另一个任务S（S称为源任务）来提升任务T的效果，也即把S的信息迁移到T中。</p>
+        <h4 id="1-马尔科夫过程"><a href="#1-马尔科夫过程" class="headerlink" title="1. 马尔科夫过程"></a>1. 马尔科夫过程</h4><p>马尔可夫性：已知当前的状态，过去与未来无关。<br>公式表示：$P(S_{t+1} | S_{t}) = P(S_{t+1} | S_{t}, S_{t-1}, …, S_{1})$</p>
+<p>马尔可夫过程分类：</p>
 <ul>
-<li>S无监督，且源数据和目标数据同时用于训练：此时主要就是自监督（self-supervised）学习技术，代表工作有CVT。</li>
-<li><strong>S无监督，且先使用源数据训练，再使用目标数据训练（序贯训练）：此时主要就是以BERT为代表的无监督模型预训练技术，代表工作有ELMo、ULMFiT、GPT/GPT-2、BERT、MASS、UNILM。（NLP中的迁移学习大多数属于该类）</strong></li>
-<li>S有监督，且源数据和目标数据同时用于训练：此时主要就是多任务（multi-task）学习技术，代表工作有MT-DNN。</li>
-<li>S有监督，且先使用源数据训练，再使用目标数据训练（序贯训练）：此时主要就是有监督模型预训练技术，类似CV中在ImageNet上有监督训练模型，然后把此模型迁移到其他任务上去的范式。代表工作有CoVe。</li>
+<li>马尔可夫奖励过程（MRP）<ul>
+<li>表示为{S, P, R, $\gamma$}</li>
 </ul>
-<h2 id="1-4-序贯训练"><a href="#1-4-序贯训练" class="headerlink" title="1.4. 序贯训练"></a>1.4. 序贯训练</h2><p><img src="http://ws3.sinaimg.cn/large/007mOCDngy1g3v1figi17j31pa0py421.jpg" alt="image"></p>
-<h3 id="1-4-1-无监督预训练"><a href="#1-4-1-无监督预训练" class="headerlink" title="1.4.1. 无监督预训练"></a>1.4.1. 无监督预训练</h3><ul>
-<li>易于得到大量无标注语料：维基百科，新闻，社交媒体…</li>
-<li>使用语言模型且基于假设：你可以通过某个词的上下文得知该词的意思</li>
+</li>
+<li>马尔可夫决策过程（MDP）<ul>
+<li>{S, A, P, R, $\gamma$} </li>
 </ul>
-<h3 id="1-4-2-有监督预训练"><a href="#1-4-2-有监督预训练" class="headerlink" title="1.4.2. 有监督预训练"></a>1.4.2. 有监督预训练</h3><ul>
-<li>CV中常见，NLP中缺乏大量标注数据集故不常用</li>
-<li>机器翻译</li>
-<li>S与T相关程度高（eg.从一个Q&amp;A数据集训练出的模型迁移到另一个数据集上）</li>
+</li>
 </ul>
-<h3 id="1-4-3-目标任务"><a href="#1-4-3-目标任务" class="headerlink" title="1.4.3. 目标任务"></a>1.4.3. 目标任务</h3><ul>
-<li>情感分析，问答，文本分类…</li>
-</ul>
-<h1 id="2-预训练"><a href="#2-预训练" class="headerlink" title="2. 预训练"></a>2. 预训练</h1><p><img src="http://ws4.sinaimg.cn/large/007mOCDngy1g3v1tsrjpcj31v00w4dt9.jpg" alt="image"></p>
-<h2 id="2-1-为什么语言模型可以work"><a href="#2-1-为什么语言模型可以work" class="headerlink" title="2.1. 为什么语言模型可以work"></a>2.1. 为什么语言模型可以work</h2><ul>
-<li>即使是对于人来说，这样是比较困难的任务</li>
-<li>语言模型会将可能词汇压缩进一个向量（e.g.“They walked down the street to ???”）</li>
-<li>为了实现该任务，模型将被迫学习语义，情感等信息</li>
-</ul>
-<h2 id="2-2-生成向量学到了什么"><a href="#2-2-生成向量学到了什么" class="headerlink" title="2.2. 生成向量学到了什么"></a>2.2. 生成向量学到了什么</h2><p><img src="http://ws3.sinaimg.cn/large/007mOCDngy1g3vuw0x2c7j30j80goq4w.jpg" alt="image"></p>
-<p><img src="http://wx4.sinaimg.cn/large/007mOCDngy1g3vv3r7kzbj30t80ikq61.jpg" alt="image"></p>
-<p><strong>BERT:fine tuning&gt;最后四层连接&gt;最后四层相加&gt;倒数第二层&gt;倒数第一层</strong></p>
-<h1 id="3-迁移"><a href="#3-迁移" class="headerlink" title="3. 迁移"></a>3. 迁移</h1><ul>
-<li>模型结构修改：预训练的模型应该修改到怎样的程度来做下游任务？</li>
-<li>优化策略：哪些层的参数需要训练，又该按怎样的顺序？</li>
-</ul>
-<h2 id="3-1-模型"><a href="#3-1-模型" class="headerlink" title="3.1. 模型"></a>3.1. 模型</h2><ul>
-<li>不调整预训练模型中间层</li>
-<li>修改模型中间层</li>
-</ul>
-<h3 id="3-1-1-unchanged"><a href="#3-1-1-unchanged" class="headerlink" title="3.1.1. unchanged"></a>3.1.1. unchanged</h3><ol>
-<li>移除预训练模型最后一层</li>
-</ol>
-<p><img src="http://ws4.sinaimg.cn/large/007mOCDngy1g3vwih3cjzj30k20i0afu.jpg" alt="image"></p>
-<ol>
-<li>根据特定任务添加相关层</li>
-</ol>
-<p><img src="http://wx2.sinaimg.cn/large/007mOCDngy1g3vwmzntf4j30na0q0wmx.jpg" alt="image"></p>
-<h3 id="3-1-2-changed"><a href="#3-1-2-changed" class="headerlink" title="3.1.2. changed"></a>3.1.2. changed</h3><ul>
-<li>原因：目标任务与预训练任务要求结构差距较大（S:单句输入，T：多句输入）</li>
-<li>Use the pretrained model weights to initialize as much as possible of a structurally different target task model</li>
-</ul>
-<p><img src="http://ws4.sinaimg.cn/large/007mOCDngy1g3wapk82mlj30t40lqdrr.jpg" alt="image"></p>
-<h2 id="3-2-优化"><a href="#3-2-优化" class="headerlink" title="3.2. 优化"></a>3.2. 优化</h2><p>可选操作</p>
+<p>其中S是状态的集合， A是动作的集合， P是动作到状态的策略，V是状态的值函数，R则是执行一个动作从一个状态转移到另一个状态的奖惩函数，$\gamma$是衰减参数。</p>
+<p>MDP可以分为全观测MDP和部分可观测MDP（POMDP）</p>
+<h4 id="2-强化学习的分类"><a href="#2-强化学习的分类" class="headerlink" title="2. 强化学习的分类"></a>2. 强化学习的分类</h4><ul>
+<li><p>按照是否有模型分类</p>
 <ul>
-<li>哪些层的权重需要更新(feature based ,fine tuning)</li>
-<li>什么时候更新，怎样更新(from top to bottom,gradual ufreezing)</li>
+<li>Model Free</li>
+<li>Model Based</li>
 </ul>
-<h3 id="3-2-1-which-weights"><a href="#3-2-1-which-weights" class="headerlink" title="3.2.1. which weights"></a>3.2.1. which weights</h3><p><strong>to tune or not to tune(the pretrained weights)</strong></p>
-<p>1.不微调<br><img src="http://wx4.sinaimg.cn/large/007mOCDngy1g3w4rmaw3ij30ne0k0tg9.jpg" alt="image"><br><img src="http://wx3.sinaimg.cn/large/007mOCDngy1g3w4tcfdqnj30sw0kunbt.jpg" alt="image"></p>
-<p>2.微调</p>
-<h3 id="3-2-3-更新策略"><a href="#3-2-3-更新策略" class="headerlink" title="3.2.3. 更新策略"></a>3.2.3. 更新策略</h3><p>动机：避免重写有用信息，最大化正向迁移<br>相关概念：catastrophic forgetting（resNet）</p>
+</li>
+<li><p>按照是否有策略和值函数</p>
 <ul>
-<li>整个训练阶段冻结除最后层之外所有层</li>
-<li>自底向上每次训练一层</li>
-<li>自上向下逐步解冻</li>
+<li>Policy Based<ul>
+<li>Policy</li>
+<li>No Value Function</li>
 </ul>
+</li>
+<li>Value Based<ul>
+<li>No Policy</li>
+<li>Value Function</li>
+</ul>
+</li>
+<li>Actor Critic<ul>
+<li>Policy</li>
+<li>Value Function</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-探索与利用"><a href="#3-探索与利用" class="headerlink" title="3. 探索与利用"></a>3. 探索与利用</h4><p>强化学习需要在探索与利用之间做出一定的权衡。强化学习Agent需要不断地探索，从环境中获取经验。与此同时，它也需要利用现有的经验决策以获取较高的回报。<br>Agent不能只是探索或者只利用。一味地探索会导致回报值过低，而一味地利用则可能陷入局部最优。</p>
+<h4 id="4-马尔科夫奖励过程（MRP）"><a href="#4-马尔科夫奖励过程（MRP）" class="headerlink" title="4. 马尔科夫奖励过程（MRP）"></a>4. 马尔科夫奖励过程（MRP）</h4><p>表示为： {S, P, R, $\gamma$}</p>
+<p>令$G_t$为打折后的奖励值：</p>
+<script type="math/tex; mode=display">G_t = R_{t+1} + \gamma R_{t+2} + ... = \sum_{k=0}^{\infty} \gamma^k R_{t+k+1}</script><p>衰减参数$\gamma \in [0, 1]$, $\gamma$越接近1表示未来的值得影响越大，接近表示未来的重要性越小。</p>
+<p>值函数：</p>
+<script type="math/tex; mode=display">V(s) =  \mathbb{E} [ G_t | S_t = s ]</script><p>Bellman等式：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+V(s) &= \mathbb{E}[G_t | S_t = s]\\
+    &= \mathbb{E}[R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+2} + ... | S_t = s] \\
+    &= \mathbb{E}[R_{t+1} + \gamma (R_{t+2} + \gamma R_{t+2} + ...) | S_t = s] \\
+    &= \mathbb{E}[R_{t+1} + \gamma V(S_{t+1}) | S_t = s]
+\end{aligned}</script><p>转化成： </p>
+<script type="math/tex; mode=display">V(s) = \mathbb{E}[R_s + \gamma \sum_{s^{'} \in S} P_{ss'} v(s^{'})]</script><p>矩阵表示： </p>
+<script type="math/tex; mode=display">v = R + \gamma P v</script><p>变换:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+v &= R + \gamma P v \\
+    (I - \gamma P) v &= R \\
+    v &= (I - \gamma P)^{-1} R
+\end{aligned}</script><h4 id="5-马尔科夫决策过程-MDP"><a href="#5-马尔科夫决策过程-MDP" class="headerlink" title="5. 马尔科夫决策过程(MDP)"></a>5. 马尔科夫决策过程(MDP)</h4><p>表示为: {S, A, P, R, $\gamma$}</p>
+<p>MDP与MRP的区别：</p>
+<ul>
+<li>MRP</li>
+</ul>
+<p><img src="/2019/强化学习总结/51C658D7-D7E4-41F0-BE21-68B5FDEB328B.png" alt="02543b32372f78f1f98813717b9e2644"></p>
+<ul>
+<li>MDP</li>
+</ul>
+<p><img src="/2019/强化学习总结/A5889761-76B1-41F9-BA85-D24667B330C9.png" alt="1ae07e08ae273f79dcc32e69c241c423"></p>
+<p>与MRP相比，MDP除了状态值函数，还增加了动作值函数。</p>
+<ul>
+<li><p>状态值函数：</p>
+<script type="math/tex; mode=display">v_{\pi}(s) =  \mathbb{E} [ G_t | S_t = s]</script></li>
+<li><p>动作值函数：</p>
+<script type="math/tex; mode=display">q_{\pi}(s, a) =  \mathbb{E} [ G_t | S_t = s, A_t = a ]</script></li>
+</ul>
+<p>和状态值函数的推导相似，动作值函数可以化简为：</p>
+<script type="math/tex; mode=display">q_{\pi}(s, a) =  \mathbb{E} [ R_{t+1} + \gamma q_{\pi}(S_{t+1}, A_{t+1}) | S_t = s,  A_t = a ]</script><p>状态值函数使用Q值函数表示：</p>
+<script type="math/tex; mode=display">v_{\pi}(s) =  \sum_{a \in A} \pi(a|s) q_{\pi}(s, a)</script><p>Q值函数表示：</p>
+<script type="math/tex; mode=display">q_{\pi}(s, a) = R_{s}^{a} + \gamma \sum_{s^{'} \in S} P_{ss^{'}}^a v_{\pi}(s^{'})</script><p>Q值函数代入状态值函数中：</p>
+<script type="math/tex; mode=display">v_{\pi}(s) =  \sum_{a \in A} \pi(a|s) \left (R_{s}^{a} + \gamma \sum_{s^{'} \in S} P_{ss^{'}}^a v_{\pi}(s^{'}) \right )</script><p>状态值函数代入Q值函数中：</p>
+<script type="math/tex; mode=display">q_{\pi}(s, a) = R_{s}^{a} + \gamma \sum_{s^{'} \in S} P_{ss^{'}}^a   \sum_{a^{'} \in A} \pi(a^{'}|s^{'}) q_{\pi}(s^{'}, a^{'})</script><p>矩阵表示： </p>
+<script type="math/tex; mode=display">v^{\pi} = R^{\pi} + \gamma P^{\pi} v^{\pi}</script><p>变换:</p>
+<script type="math/tex; mode=display">v^{\pi} = (I - \gamma P{\pi})^{-1} R^{\pi}</script><p>寻找最优的值函数：<br><img src="/2019/强化学习总结/1B69E559-0C65-4605-AD6A-D729C74AD155.png" alt="14ef6bdb0d7e7aecd6c7044496d7ed51"><br><img src="/2019/强化学习总结/86F9B82B-1EE0-45AF-9B15-CA8C800B8683.png" alt="6db938239e558d5a35c60becd7eaa19a"></p>
+<script type="math/tex; mode=display">v_{*}(s) = \max_a  q_{*}(s, a)</script><script type="math/tex; mode=display">q_{*}(s, a) = R_{s}^{a} + \gamma \sum_{s^{'} \in S} P_{ss^{'}}^{a} v_{*}(s^{'})</script><script type="math/tex; mode=display">v_{*}(s) = \max_a R_s^a + \gamma \sum_{s^{'} \in S} P_{ss^{'}}^{a} v_{*}(s^{'})</script><p>贝尔曼最优等式是非线性的，不一定收敛，可以使用迭代的方法求其最优值：</p>
+<ul>
+<li>Value Iteration</li>
+<li>Policy Iteration</li>
+<li>Q-learning</li>
+<li>Sarsa</li>
+</ul>
+<p>//TODO</p>
 
       
     </div>
@@ -524,9 +534,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/自然语言处理/" rel="tag"># 自然语言处理</a>
-          
-            <a href="/tags/迁移学习/" rel="tag"># 迁移学习</a>
+            <a href="/tags/强化学习/" rel="tag"># 强化学习</a>
           
         </div>
       
@@ -539,18 +547,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/强化学习总结/" rel="next" title="强化学习笔记">
-                <i class="fa fa-chevron-left"></i> 强化学习笔记
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/图像问答（VQA）/" rel="prev" title="VQA">
-                VQA <i class="fa fa-chevron-right"></i>
+              <a href="/2019/NLP中的迁移学习/" rel="prev" title="NLP中的迁移学习">
+                NLP中的迁移学习 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -697,7 +701,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-简介"><span class="nav-text">1. 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-什么是迁移学习"><span class="nav-text">1.1. 什么是迁移学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-为什么需要迁移学习"><span class="nav-text">1.2. 为什么需要迁移学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-迁移学习分类"><span class="nav-text">1.3. 迁移学习分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-序贯训练"><span class="nav-text">1.4. 序贯训练</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-1-无监督预训练"><span class="nav-text">1.4.1. 无监督预训练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-2-有监督预训练"><span class="nav-text">1.4.2. 有监督预训练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-3-目标任务"><span class="nav-text">1.4.3. 目标任务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-预训练"><span class="nav-text">2. 预训练</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-为什么语言模型可以work"><span class="nav-text">2.1. 为什么语言模型可以work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-生成向量学到了什么"><span class="nav-text">2.2. 生成向量学到了什么</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-迁移"><span class="nav-text">3. 迁移</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-模型"><span class="nav-text">3.1. 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-unchanged"><span class="nav-text">3.1.1. unchanged</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-changed"><span class="nav-text">3.1.2. changed</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-优化"><span class="nav-text">3.2. 优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-which-weights"><span class="nav-text">3.2.1. which weights</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-更新策略"><span class="nav-text">3.2.3. 更新策略</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-马尔科夫过程"><span class="nav-text">1. 马尔科夫过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-强化学习的分类"><span class="nav-text">2. 强化学习的分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-探索与利用"><span class="nav-text">3. 探索与利用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-马尔科夫奖励过程（MRP）"><span class="nav-text">4. 马尔科夫奖励过程（MRP）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-马尔科夫决策过程-MDP"><span class="nav-text">5. 马尔科夫决策过程(MDP)</span></a></li></ol></div>
             
 
           </div>
@@ -889,6 +893,30 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 
