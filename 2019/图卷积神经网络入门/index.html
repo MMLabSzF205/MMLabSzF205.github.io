@@ -108,28 +108,28 @@
 
 
 
-  <meta name="description" content="1. 简介1.1. 卷积1.局部感受野 2.参数共享 1.2. 为什么需要图卷积为什么不能直接使用卷积？  每个节点的邻居数目不一定相同  那么问题来了，如何定义不规则图结构上的卷积呢？ 1.3. 图卷积直观理解定义一：  f\left(H^{(l)}, A\right)=\sigma\left(A H^{(l)} W^{(l)}\right)A是邻接矩阵定义二:  f\left(H^{(l)},">
+  <meta name="description" content="[toc] 1. 简介1.1. 卷积1.局部感受野 2.参数共享 1.2. 为什么需要图卷积为什么不能直接使用卷积？  每个节点的邻居数目不一定相同  那么问题来了，如何定义不规则图结构上的卷积呢？ 1.3. 图卷积直观理解定义一：  f\left(H^{(l)}, A\right)=\sigma\left(A H^{(l)} W^{(l)}\right)A是邻接矩阵定义二:  f\left(H^">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图卷积神经网络入门">
+<meta property="og:title" content="F205学习小组博客">
 <meta property="og:url" content="http://MMLabSzF205.github.io/2019/图卷积神经网络入门/index.html">
 <meta property="og:site_name" content="F205学习小组博客">
-<meta property="og:description" content="1. 简介1.1. 卷积1.局部感受野 2.参数共享 1.2. 为什么需要图卷积为什么不能直接使用卷积？  每个节点的邻居数目不一定相同  那么问题来了，如何定义不规则图结构上的卷积呢？ 1.3. 图卷积直观理解定义一：  f\left(H^{(l)}, A\right)=\sigma\left(A H^{(l)} W^{(l)}\right)A是邻接矩阵定义二:  f\left(H^{(l)},">
+<meta property="og:description" content="[toc] 1. 简介1.1. 卷积1.局部感受野 2.参数共享 1.2. 为什么需要图卷积为什么不能直接使用卷积？  每个节点的邻居数目不一定相同  那么问题来了，如何定义不规则图结构上的卷积呢？ 1.3. 图卷积直观理解定义一：  f\left(H^{(l)}, A\right)=\sigma\left(A H^{(l)} W^{(l)}\right)A是邻接矩阵定义二:  f\left(H^">
 <meta property="og:locale" content="Chinese, English">
-<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=1499f41d314a700d2416606bc606ee33">
-<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=3b50d70252d75c39821e26a0c6bc9bc7">
+<meta property="og:image" content="http://mmlabszf205.github.io/2019/图卷积神经网络入门/A486BDF7-41F6-426B-A43D-D7571104FAF6.gif">
+<meta property="og:image" content="http://mmlabszf205.github.io/2019/图卷积神经网络入门/F4B22585-C0CC-4989-AC6E-610365EF7763.png">
 <meta property="og:image" content="http://mmlabszf205.github.io/2019/图卷积神经网络入门/4DFE5464-E8E2-4A20-BD8D-F8F26DFCAE31.png">
-<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=d437ddd8d735e3d6dd2e4ef2b6058953">
-<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=ca83187d8628ff8f31c7dc663516dafd">
-<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=b4acb10553c74678ddab54ea285faa0d">
-<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=b8d5806ef71f450298abf2552c5b7b69">
-<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=833da1cab7124891bd32d0f39902dedf">
+<meta property="og:image" content="http://mmlabszf205.github.io/2019/图卷积神经网络入门/AEA3A3E9-9521-415A-8536-5EDF40A93C73.jpg">
+<meta property="og:image" content="http://mmlabszf205.github.io/2019/图卷积神经网络入门/EE90E9C5-1078-4C22-9307-7C347E833A46.gif">
+<meta property="og:image" content="http://mmlabszf205.github.io/2019/图卷积神经网络入门/1FD5D200-D4DE-4520-810A-8F2BD6A8060C.gif">
+<meta property="og:image" content="http://mmlabszf205.github.io/2019/图卷积神经网络入门/3DBF26ED-43A0-448F-850C-C40A1C0B4310.gif">
+<meta property="og:image" content="http://mmlabszf205.github.io/2019/图卷积神经网络入门/A8F37156-47DE-4D7E-B05E-C4F8007B1750.gif">
 <meta property="og:image" content="http://mmlabszf205.github.io/2019/图卷积神经网络入门/1A956D8D-4FEF-4878-B09A-11E470ADC4B0.png">
-<meta property="og:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=4fb7f437d95a5a93d655dfe317781283">
-<meta property="og:updated_time" content="2019-06-24T09:29:03.618Z">
+<meta property="og:image" content="http://mmlabszf205.github.io/2019/图卷积神经网络入门/F3C6886E-593F-4293-A159-048405ADD42C.jpg">
+<meta property="og:updated_time" content="2019-06-24T10:19:23.436Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="图卷积神经网络入门">
-<meta name="twitter:description" content="1. 简介1.1. 卷积1.局部感受野 2.参数共享 1.2. 为什么需要图卷积为什么不能直接使用卷积？  每个节点的邻居数目不一定相同  那么问题来了，如何定义不规则图结构上的卷积呢？ 1.3. 图卷积直观理解定义一：  f\left(H^{(l)}, A\right)=\sigma\left(A H^{(l)} W^{(l)}\right)A是邻接矩阵定义二:  f\left(H^{(l)},">
-<meta name="twitter:image" content="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=1499f41d314a700d2416606bc606ee33">
+<meta name="twitter:title" content="F205学习小组博客">
+<meta name="twitter:description" content="[toc] 1. 简介1.1. 卷积1.局部感受野 2.参数共享 1.2. 为什么需要图卷积为什么不能直接使用卷积？  每个节点的邻居数目不一定相同  那么问题来了，如何定义不规则图结构上的卷积呢？ 1.3. 图卷积直观理解定义一：  f\left(H^{(l)}, A\right)=\sigma\left(A H^{(l)} W^{(l)}\right)A是邻接矩阵定义二:  f\left(H^">
+<meta name="twitter:image" content="http://mmlabszf205.github.io/2019/图卷积神经网络入门/A486BDF7-41F6-426B-A43D-D7571104FAF6.gif">
 
 
 
@@ -146,7 +146,7 @@
   };
 </script>
 
-  <title>图卷积神经网络入门 | F205学习小组博客</title>
+  <title> | F205学习小组博客</title>
   
 
 
@@ -332,7 +332,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">图卷积神经网络入门
+          <h2 class="post-title" itemprop="name headline">
               
             
           </h2>
@@ -357,13 +357,9 @@
                 
               
 
-              <time title="Created: 2019-06-24 00:00:00 / Modified: 17:29:03" itemprop="dateCreated datePublished" datetime="2019-06-24T00:00:00+08:00">2019-06-24</time>
+              <time title="Created: 2019-06-24 18:19:23" itemprop="dateCreated datePublished" datetime="2019-06-24T18:19:23+08:00">2019-06-24</time>
             
 
-            
-              
-
-              
             
           </span>
 
@@ -395,22 +391,23 @@
       
 
       
-        <h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><h2 id="1-1-卷积"><a href="#1-1-卷积" class="headerlink" title="1.1. 卷积"></a>1.1. 卷积</h2><p><strong>1.局部感受野</strong></p>
-<p><strong>2.参数共享</strong><br><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=1499f41d314a700d2416606bc606ee33" alt="1499f41d314a700d2416606bc606ee33.gif"><br><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=3b50d70252d75c39821e26a0c6bc9bc7" alt="3b50d70252d75c39821e26a0c6bc9bc7.png"></p>
+        <p>[toc]</p>
+<h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><h2 id="1-1-卷积"><a href="#1-1-卷积" class="headerlink" title="1.1. 卷积"></a>1.1. 卷积</h2><p><strong>1.局部感受野</strong></p>
+<p><strong>2.参数共享</strong><br><img src="/2019/图卷积神经网络入门/A486BDF7-41F6-426B-A43D-D7571104FAF6.gif" alt="1499f41d314a700d2416606bc606ee33"><br><img src="/2019/图卷积神经网络入门/F4B22585-C0CC-4989-AC6E-610365EF7763.png" alt="3b50d70252d75c39821e26a0c6bc9bc7"></p>
 <h2 id="1-2-为什么需要图卷积"><a href="#1-2-为什么需要图卷积" class="headerlink" title="1.2. 为什么需要图卷积"></a>1.2. 为什么需要图卷积</h2><p><img src="/2019/图卷积神经网络入门/4DFE5464-E8E2-4A20-BD8D-F8F26DFCAE31.png" alt="517f816afc86536f35a4ba29509aeb50"><br><strong>为什么不能直接使用卷积？</strong></p>
 <ul>
 <li>每个节点的邻居数目不一定相同</li>
 </ul>
-<p><strong>那么问题来了，如何定义不规则图结构上的卷积呢？</strong><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=d437ddd8d735e3d6dd2e4ef2b6058953" alt="d437ddd8d735e3d6dd2e4ef2b6058953.jpeg"></p>
+<p><strong>那么问题来了，如何定义不规则图结构上的卷积呢？</strong><img src="/2019/图卷积神经网络入门/AEA3A3E9-9521-415A-8536-5EDF40A93C73.jpg" alt="d437ddd8d735e3d6dd2e4ef2b6058953"></p>
 <h2 id="1-3-图卷积直观理解"><a href="#1-3-图卷积直观理解" class="headerlink" title="1.3. 图卷积直观理解"></a>1.3. 图卷积直观理解</h2><p>定义一：</p>
 <script type="math/tex; mode=display">
 f\left(H^{(l)}, A\right)=\sigma\left(A H^{(l)} W^{(l)}\right)</script><p>A是邻接矩阵<br>定义二:</p>
 <script type="math/tex; mode=display">
 f\left(H^{(l)}, A\right)=\sigma\left(\hat{D}^{-\frac{1}{2}} \hat{A} \hat{D}^{-\frac{1}{2}} H^{(l)} W^{(l)}\right)</script><ol>
-<li><strong>传递</strong>信息给相邻节点<br><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=ca83187d8628ff8f31c7dc663516dafd" alt="ca83187d8628ff8f31c7dc663516dafd.gif"></li>
-<li><p><strong>接受</strong>来自相邻节点的信息<br><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=b4acb10553c74678ddab54ea285faa0d" alt="b4acb10553c74678ddab54ea285faa0d.gif"></p>
+<li><strong>传递</strong>信息给相邻节点<br><img src="/2019/图卷积神经网络入门/EE90E9C5-1078-4C22-9307-7C347E833A46.gif" alt="ca83187d8628ff8f31c7dc663516dafd"></li>
+<li><p><strong>接受</strong>来自相邻节点的信息<br><img src="/2019/图卷积神经网络入门/1FD5D200-D4DE-4520-810A-8F2BD6A8060C.gif" alt="b4acb10553c74678ddab54ea285faa0d"></p>
 </li>
-<li><p>计算新的表示<br><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=b8d5806ef71f450298abf2552c5b7b69" alt="b8d5806ef71f450298abf2552c5b7b69.gif"><br><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=833da1cab7124891bd32d0f39902dedf" alt="833da1cab7124891bd32d0f39902dedf.gif"></p>
+<li><p>计算新的表示<br><img src="/2019/图卷积神经网络入门/3DBF26ED-43A0-448F-850C-C40A1C0B4310.gif" alt="b8d5806ef71f450298abf2552c5b7b69"><br><img src="/2019/图卷积神经网络入门/A8F37156-47DE-4D7E-B05E-C4F8007B1750.gif" alt="833da1cab7124891bd32d0f39902dedf"></p>
 </li>
 </ol>
 <p><strong>VS. cnn卷积</strong><br>cnn卷积也可以算是接受来自附近节点的信息，然后接受并更新，随着层数增加，感受野逐渐增加</p>
@@ -439,7 +436,7 @@ L=U \Lambda U^{T}</script><ol>
 <li>切比雪夫多项式<script type="math/tex; mode=display">
 T_{0}(x)=1, T_{1}(x)=x, T_{n+1}(x)=2 x T_{n}(x)-T_{n-1}(x)</script>切比雪夫多项式在逼近理论中有重要的应用</li>
 </ol>
-<h2 id="2-2-图卷积定义"><a href="#2-2-图卷积定义" class="headerlink" title="2.2. 图卷积定义"></a>2.2. 图卷积定义</h2><p><img src="evernotecid://218D68B6-39DF-4241-861D-CFBC06CA44DD/appyinxiangcom/22359036/ENNote/p38?hash=4fb7f437d95a5a93d655dfe317781283" alt="4fb7f437d95a5a93d655dfe317781283.jpeg"><br>$f * g$在图上的卷积不好直接定义，那么我们能不能先定义图上的傅里叶变换，根据卷积定理，频域乘积再做逆变换得到卷积。这个图上的傅里叶变换是什么呢？<br>我们知道傅里叶变换的本质就是把原向量投影到以一组正交向量为基的空间中，在线性数据下，这组正交基是$e^{2 \pi i x v}(v\in R)$，那么在图结构下，这组正交基是什么呢？<br>前面提到的Laplacian算法对角化后得到的U就是我们要的图结构下的正交基。</p>
+<h2 id="2-2-图卷积定义"><a href="#2-2-图卷积定义" class="headerlink" title="2.2. 图卷积定义"></a>2.2. 图卷积定义</h2><p><img src="/2019/图卷积神经网络入门/F3C6886E-593F-4293-A159-048405ADD42C.jpg" alt="4fb7f437d95a5a93d655dfe317781283"><br>$f * g$在图上的卷积不好直接定义，那么我们能不能先定义图上的傅里叶变换，根据卷积定理，频域乘积再做逆变换得到卷积。这个图上的傅里叶变换是什么呢？<br>我们知道傅里叶变换的本质就是把原向量投影到以一组正交向量为基的空间中，在线性数据下，这组正交基是$e^{2 \pi i x v}(v\in R)$，那么在图结构下，这组正交基是什么呢？<br>前面提到的Laplacian算法对角化后得到的U就是我们要的图结构下的正交基。</p>
 <div class="table-container">
 <table>
 <thead>
